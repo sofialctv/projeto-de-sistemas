@@ -1,41 +1,46 @@
-﻿using System;
-using CalculadoraConsole.Application.DTOs.Request;
-using CalculadoraConsole.Application.DTOs.Response;
+﻿using CalculadoraConsole.Controller;
+using CalculadoraConsole.DTOs;
+using System;
 
-namespace CalculadoraConsole.Application.View
+namespace CalculadoraConsole.View
 {
-    internal class Menu
+    public class Menu
     {
-        public static RequestDTO Show()
+        public static void Show()
         {
-            Console.WriteLine("#    C# CALC    #");
-            Console.WriteLine("Escolha uma das opções:");
-            Console.WriteLine("1 - Somar");
-            Console.WriteLine("2 - Subtrair");
-            Console.WriteLine("3 - Multiplicar");
-            Console.WriteLine("4 - Dividir");
-            Console.WriteLine("5 - SAIR");
-
-            int Opcao = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("\nInforme o primeiro valor:");
-            int Valor1 = int.Parse(Console.ReadLine());
+            var controller = new CalculadoraController();
             
-            Console.WriteLine("\nInforme o segundo valor:");
-            int Valor2 = int.Parse(Console.ReadLine());
+            Console.WriteLine("Escolha uma das opções:");
+            Console.WriteLine("# Somar");
+            Console.WriteLine("# Subtrair");
+            Console.WriteLine("# Multiplicar");
+            Console.WriteLine("# Dividir");
+            Console.WriteLine("# SAIR");
 
-            return new RequestDTO(Opcao, Valor1, Valor2);
-        }
+            string operacaoEscolhida = Console.ReadLine();
 
-        public static void ShowResult(ResponseDTO responseDTO)
-        {
-            if (responseDTO.Result == -1)
+            Console.WriteLine("Digite o primeiro número:");
+            int numero1 = Convert.ToInt16(Console.ReadLine());
+
+            Console.WriteLine("Digite o segundo número:");
+            int numero2 = Convert.ToInt16(Console.ReadLine());
+
+            // Cria o DTO de request (entrada)
+            var request = new OperacaoRequestDTO()
             {
-                Console.WriteLine("Erro ao calcular");
-            }
-            else
+                Numero1 = numero1,
+                Numero2 = numero2,
+                TipoOperacao = operacaoEscolhida
+            };
+
+            // Chama o controller e obtém o DTO de response (saída)
+            var response = controller.ExecutarOperacao(request);
+
+            // Exibe o resultado
+            Console.WriteLine(response.Mensagem);
+            if (response.Mensagem.Contains("sucesso"))
             {
-                Console.WriteLine($"\nRESULTADO = {responseDTO.Result}");
+                Console.WriteLine($"Resultado: {response.Resultado}");
             }
         }
     }
