@@ -1,0 +1,6 @@
+@CadastroPessoas_HostAddress = http://localhost:5204
+
+GET {{CadastroPessoas_HostAddress}}/cadastropessoas/
+Accept: application/json
+
+###

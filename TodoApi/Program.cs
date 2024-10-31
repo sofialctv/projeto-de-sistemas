@@ -53,7 +53,6 @@ static async Task<IResult> GetAllTodos(TodoDb db)
 //    // Assert: Check for the correct returned type
 //    Assert.IsType<Ok<Todo[]>>(result);
 //}
-
 static async Task<IResult> GetCompleteTodos(TodoDb db)
 {
     return TypedResults.Ok(await db.Todos.Where(t => t.IsComplete).Select(x => new TodoItemDTO(x)).ToListAsync());

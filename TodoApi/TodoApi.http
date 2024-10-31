@@ -1,7 +1,0 @@
-﻿// var used for all endpoints
-@TodoApi_HostAddress = 
-
-POST {{TodoApi_HostAddress}}/todoitems
-
-// request delimiter: what comes after it's for a different request
-###
